@@ -19,6 +19,8 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:layout_alignStart="@+id/tvBody"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:text="TextView" />
 
     <TextView
@@ -37,6 +39,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/tvUserName"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:text="TextView" />
 
     <TextView
@@ -46,5 +50,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/tvHandle"
+        android:gravity="left"
+        android:singleLine="true"
         android:text="TextView" />
 </RelativeLayout>
