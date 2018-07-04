@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ComposeActivity">
+
+    <EditText
+        android:id="@+id/twInput"
+        android:layout_width="380dp"
+        android:layout_height="205dp"
+        android:ems="10"
+        android:maxLength="140"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="55dp" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <Button
+        android:id="@+id/btnTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="postTweet"
+        android:text="Tweet"
+        tools:layout_editor_absoluteX="293dp"
+        tools:layout_editor_absoluteY="6dp" />
+</android.support.constraint.ConstraintLayout>
