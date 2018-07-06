@@ -17,7 +17,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvUserNameDetails;
     TextView tvBodyDetails;
     TextView tvHandleDetails;
-    TextView tvTimeDetails;
+    TextView tvTime;
+    TextView tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvUserNameDetails = (TextView) findViewById(R.id.tvUserNameDetails);
         tvBodyDetails = (TextView) findViewById(R.id.tvBodyDetails);
         tvHandleDetails = (TextView) findViewById(R.id.tvHandleDetails);
-        tvTimeDetails = (TextView) findViewById(R.id.tvTimeDetails);
+        tvTime = (TextView) findViewById(R.id.tvTime);
+        tvDate = (TextView) findViewById(R.id.tvDate);
 
 
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
@@ -36,7 +38,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvUserNameDetails.setText(tweet.user.name);
         tvHandleDetails.setText("@" + tweet.user.screenName);
         tvBodyDetails.setText(tweet.body);
-        tvTimeDetails.setText(tweet.createdAt);
+        tvTime.setText(tweet.DetailsTime);
+        tvDate.setText(tweet.DetailsDate);
         Glide.with(getApplicationContext()).load(tweet.user.profileImageurl).into(ivProfileImg);
 
     }
