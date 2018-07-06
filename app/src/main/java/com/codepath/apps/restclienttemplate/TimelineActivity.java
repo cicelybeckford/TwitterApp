@@ -2,12 +2,16 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -24,10 +28,13 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
+    private SwipeRefreshLayout swipeContainer;
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
     private final int REQUEST_CODE = 20;
+    // Instance of the progress action-view
+    MenuItem miActionProgressItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +53,86 @@ public class TimelineActivity extends AppCompatActivity {
         //set the adapter
         rvTweets.setAdapter(tweetAdapter);
         populateTimeline();
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                showProgressBar();
+                fetchTimelineAsync(0);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(R.color.twitter_blue);
+
+    }
+
+    public void fetchTimelineAsync(int page) {
+        // Send the network request to fetch the updated data
+        // `client` here is an instance of Android Async HTTP
+        // getHomeTimeline is an example endpoint.
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            ArrayList<Tweet> temp_tweet_list = new ArrayList<>();
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                // Remember to CLEAR OUT old items before appending in the new ones
+                tweetAdapter.clear();
+                // ...the data has come back, add new items to your adapter...
+                for (int i = 0; i < response.length(); i++) {
+                    //convert each object to a Tweet model
+                    //add that Tweet model to our data source
+                    //notify the adapter that we've added an item
+                    Tweet tweet = null;
+                    try {
+                        tweet = Tweet.fromJSON((response.getJSONObject(i)));
+                        temp_tweet_list.add(tweet);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                tweetAdapter.addAll(temp_tweet_list);
+                // Now we call setRefreshing(false) to signal refresh has finished
+                hideProgressBar();
+                swipeContainer.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.d("DEBUG", "Fetch timeline error: " + errorResponse.toString());
+            }
+        });
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
+
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Extract the action-view from the menu item
+        ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void replytoTweet(View v) {
+       //
     }
 
     private void populateTimeline() {
