@@ -1,7 +1,11 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +23,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvHandleDetails;
     TextView tvTime;
     TextView tvDate;
+    ImageButton btnReplyDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvHandleDetails = (TextView) findViewById(R.id.tvHandleDetails);
         tvTime = (TextView) findViewById(R.id.tvTime);
         tvDate = (TextView) findViewById(R.id.tvDate);
+        //btnReplyDetails = (ImageButton) findViewById(R.id.btnReplyDetails);
 
 
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
@@ -41,6 +47,12 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvTime.setText(tweet.DetailsTime);
         tvDate.setText(tweet.DetailsDate);
         Glide.with(getApplicationContext()).load(tweet.user.profileImageurl).into(ivProfileImg);
+    }
 
+    public void replyTo (View view) {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, ComposeActivity.class);
+        intent.putExtra("TwitterHandle", tweet.user.screenName);
+        context.startActivity(intent);
     }
 }

@@ -31,6 +31,7 @@ public class ComposeActivity extends AppCompatActivity {
     TextView tvTName;
     ImageView ivProfile;
     TextView tvCharCount;
+    TextView tvReplyTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +43,23 @@ public class ComposeActivity extends AppCompatActivity {
         tvTName = (TextView) findViewById(R.id.tvTName);
         ivProfile = (ImageView) findViewById(R.id.ivProfile);
         tvCharCount = (TextView) findViewById(R.id.tvCharCount);
+        tvReplyTo = (TextView) findViewById(R.id.tvReplyTo);
+        String twitterhandle = "";
 
         client = TwitterApp.getRestClient(this);
         userInfo();
-
         tvCharCount.setText("140");
-        inputCount(twInput, tvCharCount);
 
-        postTweet(btnTweet);
+        twitterhandle = getIntent().getStringExtra("TwitterHandle");
+        if (twitterhandle != null) {
+            tvReplyTo.setText("Replying to " + twitterhandle);
+            tvReplyTo.setVisibility(View.VISIBLE);
+            String message = "@" + twitterhandle;
+            twInput.setText(message);
+            tvCharCount.setText("" + (140 - message.length()));
+        }
+
+        inputCount(twInput, tvCharCount);
     }
 
     public void inputCount (EditText editText, final TextView textView) {
@@ -117,5 +127,6 @@ public class ComposeActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
+        tvReplyTo.setVisibility(View.INVISIBLE);
     }
 }

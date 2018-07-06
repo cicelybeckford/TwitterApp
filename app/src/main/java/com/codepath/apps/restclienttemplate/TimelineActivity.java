@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -129,10 +128,6 @@ public class TimelineActivity extends AppCompatActivity {
         ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
         // Return to finish
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    public void replytoTweet(View v) {
-       //
     }
 
     private void populateTimeline() {

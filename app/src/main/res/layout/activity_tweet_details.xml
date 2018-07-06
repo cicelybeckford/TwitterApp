@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvBodyDetails"
+        android:textColor="#969691"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="5dp"
@@ -67,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvBodyDetails"
         android:layout_toRightOf="@+id/tvTime"
+        android:textColor="#969691"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="5dp"
         android:gravity="left"
@@ -82,6 +84,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
+        android:onClick="replyTo"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/ic_reply" />
 

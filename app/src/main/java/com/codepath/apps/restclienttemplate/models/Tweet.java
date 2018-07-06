@@ -42,7 +42,7 @@ public class Tweet {
         String newTime = "";
         try {
             Date sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH).parse(timeCreated);
-            newTime = new SimpleDateFormat("HH:mm a", Locale.ENGLISH).format(sf);
+            newTime = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sf);
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -94,4 +94,14 @@
         android:layout_toStartOf="@+id/btnTweet"
         android:text="TextView"
         android:textColor="@color/medium_gray" />
+
+    <TextView
+        android:id="@+id/tvReplyTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/twInput"
+        android:layout_alignStart="@+id/twInput"
+        android:visibility="invisible"
+        android:text="TextView"
+        android:textSize="16sp" />
 </RelativeLayout>
