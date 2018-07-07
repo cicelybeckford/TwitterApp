@@ -29,6 +29,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUserName"
+        android:autoLink="web"
+        android:linksClickable="false"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:text="TextView" />
@@ -89,8 +92,24 @@
         android:layout_below="@id/tvBody"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/btnRetweet"
+        android:layout_toRightOf="@id/rtCountTL"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+    <TextView
+        android:id="@+id/rtCountTL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btnRetweet"
+        android:layout_toEndOf="@+id/btnRetweet"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/favCountTL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btnRetweet"
+        android:layout_toEndOf="@+id/btnFavorite"
+        android:text="TextView" />
 </RelativeLayout>

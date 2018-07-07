@@ -21,6 +21,9 @@ public class Tweet {
     public String createdAt;
     public String DetailsTime;
     public String DetailsDate;
+    public Long favCount;
+    public Long rtCount;
+    public boolean favorited;
 
     //deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -33,6 +36,10 @@ public class Tweet {
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         tweet.DetailsDate = getDateForDetails(jsonObject.getString("created_at"));
         tweet.DetailsTime = getTimeForDetails(jsonObject.getString("created_at"));
+        tweet.favCount = jsonObject.getLong("favorite_count");
+        tweet.rtCount = jsonObject.getLong("retweet_count");
+        tweet.favorited = jsonObject.getBoolean("favorited");
+
         return tweet;
     }
 

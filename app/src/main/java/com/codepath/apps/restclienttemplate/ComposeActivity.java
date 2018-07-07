@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import cz.msebera.android.httpclient.Header;
 public class ComposeActivity extends AppCompatActivity {
     private TwitterClient client;
     private String tweetMessage;
-    Button btnTweet;
     EditText twInput;
     TextView tvTHandle;
     TextView tvTName;
@@ -37,7 +35,6 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-        btnTweet = (Button) findViewById(R.id.btnTweet);
         twInput = (EditText) findViewById(R.id.twInput);
         tvTHandle = (TextView) findViewById(R.id.tvTHandle);
         tvTName = (TextView) findViewById(R.id.tvTName);

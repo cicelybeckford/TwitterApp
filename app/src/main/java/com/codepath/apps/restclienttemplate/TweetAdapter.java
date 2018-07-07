@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     private List<Tweet> mTweets;
     Context context;
+    private final int REQUEST_CODE = 20;
 
     //pass in the tweets array in the constructor
     public TweetAdapter(List<Tweet> tweets) {
@@ -53,6 +55,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     //bind the values based on the position of the element
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //get the data according to position
@@ -63,8 +66,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvBody.setText(tweet.body);
         holder.tvHandle.setText("@" + tweet.user.screenName);
         holder.tvTimestamp.setText(tweet.createdAt);
+        holder.rtCountTL.setText(Long.toString(tweet.rtCount));
+        holder.favCountTL.setText(Long.toString(tweet.favCount));
 
-
+        if (tweet.favorited == true) {
+            holder.btnFavorite.setBackgroundColor(R.color.medium_red);
+        }
         Glide.with(context).load(tweet.user.profileImageurl).into(holder.ivProfileImage);
     }
 
@@ -80,7 +87,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvHandle;
         public TextView tvTimestamp;
         public ImageButton btnReply;
-        public ImageButton btnReplyDetails;
+        public TextView rtCountTL;
+        public TextView favCountTL;
+        public ImageButton btnFavorite;
 
         public ViewHolder (View itemView) {
             super (itemView);
@@ -92,6 +101,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
             tvTimestamp = (TextView) itemView.findViewById(R.id.tvTimestamp);
             btnReply = (ImageButton) itemView.findViewById(R.id.btnReply) ;
+            rtCountTL = (TextView) itemView.findViewById(R.id.rtCountTL);
+            favCountTL = (TextView) itemView.findViewById(R.id.favCountTL);
+            btnFavorite = (ImageButton) itemView.findViewById(R.id.btnFavorite);
 
             btnReply.setOnClickListener(this);
             itemView.setOnClickListener(this);
@@ -102,16 +114,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             int position = getAdapterPosition();
             // make sure the position is valid, i.e. actually exists in the view
             if (position != RecyclerView.NO_POSITION) {
-                if (v.getId() == itemView.getId()) {
+                if (v.getId() == btnReply.getId()) {
                     Tweet tweet = mTweets.get(position);
-                    Intent intent = new Intent(context, TweetDetailsActivity.class);
-                    intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                    Intent intent = new Intent(context, ComposeActivity.class);
+                    intent.putExtra("TwitterHandle", tweet.user.screenName);
                     context.startActivity(intent);
                 }
                 else {
                     Tweet tweet = mTweets.get(position);
-                    Intent intent = new Intent(context, ComposeActivity.class);
-                    intent.putExtra("TwitterHandle", tweet.user.screenName);
+                    Intent intent = new Intent(context, TweetDetailsActivity.class);
+                    intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
                     context.startActivity(intent);
                 }
             }
