@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 * [x] User can **select "reply" from detail view to respond to a tweet**
   * [x] User that wrote the original tweet is **automatically "@" replied in compose**
 * [x] User can tap a tweet to **open a detailed tweet view**
-  * [ ] User can **take favorite (and unfavorite) or reweet** actions on a tweet
+  * [x] User can **take favorite (and unfavorite) or reweet** actions on a tweet
 * [ ] User can **see embedded image media within a tweet** on list or detail view.
 
 The following **bonus** features are implemented:
@@ -36,7 +36,7 @@ The following **bonus** features are implemented:
 * [ ] Compose tweet functionality is build using modal overlay
 * [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
 * [x] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.com/android/Drawables#vector-drawables) where appropriate.
-* [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
+* [x] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
 * [ ] User can view following / followers list through any profile they view.
 * [ ] User can see embedded image media within the tweet detail view
 * [ ] Use the popular ButterKnife annotation library to reduce view boilerplate.
@@ -46,7 +46,8 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [x] User can reply from details view
+* [x] Tweets favorited by logged in user have a red favorite icon
 
 ## Video Walkthrough
 
